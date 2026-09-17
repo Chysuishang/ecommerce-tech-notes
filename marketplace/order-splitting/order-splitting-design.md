@@ -205,6 +205,46 @@ if diff != 0 {
 | 优惠券是平台券还是商户券 | 平台券按比例分摊到各子单；商户券只落到该商户子单，不参与跨商户分摊 |
 | 子单金额出现负数 | 兜底校验：`shop_amount < 0` 直接拒绝拆单并报警，说明分摊逻辑有问题 |
 
+## 拆单与结算的衔接
+
+子订单是结算的输入，所以拆单时就要想清楚"什么状态下这笔钱可以给商户"。
+
+常见做法是分两步，而不是一步到位：
+
+```
+order_sub.status = 30（已收货）
+  └─ 生成一条 settlement_item（待结算）
+       └─ 过了售后期（如 7 天无退款）
+            └─ 进入结算池，按账期生成结算单
+                 └─ 打款后回写 settlement_item.status = 已结算
+```
+
+这样处理的好处：
+
+- 收货和可结算解耦，售后期长度可以按类目调整，不用改订单状态；
+- 退款只需要把对应的 `settlement_item` 作废或标记待扣回，不影响已生成的结算单；
+- 对账时能明确回答"这笔钱现在在哪一步"，而不是只有一个模糊的"未结算"。
+
+对应表结构（同样属于 **Recommended Design**）：
+
+```sql
+CREATE TABLE settlement_item (
+  id           BIGINT       NOT NULL,
+  sub_order_id BIGINT       NOT NULL COMMENT '关联子订单',
+  shop_id      BIGINT       NOT NULL,
+  amount       DECIMAL(12,2) NOT NULL COMMENT '商户应收',
+  commission   DECIMAL(12,2) NOT NULL,
+  settle_amount DECIMAL(12,2) NOT NULL COMMENT '实际结算给商户',
+  status       TINYINT      NOT NULL COMMENT '10待结算 20已入池 30已结算 40已作废',
+  settle_time  DATETIME     NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_sub_order (sub_order_id),
+  KEY idx_shop_status (shop_id, status)
+);
+```
+
+`uk_sub_order` 保证一个子订单只能产生一条结算项，避免重复入池。
+
 ## Practical Notes
 
 1. **拆单幂等键要在建表时就定好。** 事后加唯一键，历史上已经产生的重复子订单要先清洗，成本高得多。
