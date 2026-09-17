@@ -1,98 +1,105 @@
 # Ecommerce Tech Notes
 
-Engineering notes on mall systems and enterprise e-commerce, written from real development, integration and production-support work.
+Mall system and enterprise e-commerce engineering notes from real-world development and implementation practice.
 
-Topics covered in this repository:
+记录企业商城、B2B、多商户、支付分账、系统集成及商城研发过程中的技术实践。
 
-- B2B commerce — customer tiers, contract pricing, credit and approval flows
-- Marketplace — order splitting, commission, settlement and refund
-- Order architecture — state machines, idempotency, multi-channel orders
-- Inventory — deduction strategies, oversell prevention, Redis vs. database consistency
-- Payment — payment orders, callbacks, reconciliation, split settlement
-- System integration — ERP, WMS, CRM, logistics
-- Database design — SPU/SKU, orders, settlement, member data
-- Java — Spring Boot, modular monolith, transaction and cache boundaries
-- Golang — API services, concurrency, Gin/GORM, Redis
-- API design — REST, authentication, signing, idempotency, webhooks
-- Deployment — Docker, Linux, Nginx, MySQL, Redis, HTTPS
-- Troubleshooting — production issues and how they were actually diagnosed
+## 这个仓库解决什么问题
 
-## Purpose
+商城系统的技术经验大多散落在项目复盘、内部文档和聊天记录里，能复用的部分反而很难沉淀：数据模型、状态机、边界条件和踩过的坑，换一个项目又遇到一遍。
 
-Most mall-system knowledge is scattered across project retrospectives, internal docs and chat history. This repository collects the parts that are reusable: data models, state machines, boundary conditions and failure modes that show up again and again in enterprise e-commerce projects.
+这个仓库只收录可以复用的那部分，每篇文档尽量回答三件事：
 
-Each document is meant to answer three questions:
+1. 商城业务里真实的问题是什么；
+2. 为什么看起来最直接的做法会失败；
+3. 什么设计能撑住，代价是什么。
 
-1. What is the real problem in a mall system?
-2. Why does the obvious solution fail?
-3. What design actually holds up, and what does it cost?
+不是教程合集，也不是产品介绍。
 
-## Repository layout
+## 内容方向
+
+- B2B 商城：客户等级、客户价格、合同价、阶梯价、授信、账期、审批、询价报价
+- 多商户平台：拆单、分账、结算、佣金、退款、商户数据隔离
+- 订单与库存：订单状态机、幂等、库存扣减、防超卖、多渠道订单
+- 支付：支付单、回调、对账、退款、分账
+- 数据模型：SPU/SKU、订单、库存、结算、会员
+- Redis：缓存、分布式锁、库存、限流、热点数据
+- 接口与集成：REST、鉴权、签名、幂等、Webhook、ERP / WMS / CRM / 物流
+- Java / Golang：Spring Boot、模块化单体、事务边界、Go 服务与并发
+- 部署与运维：Docker、Linux、Nginx、MySQL、Redis、HTTPS、故障排查
+- 安全：Token、权限、越权、接口与数据安全
+
+## 目录结构
 
 ```
-b2b/              B2B commerce: pricing, customer, order
-marketplace/      Multi-vendor: order splitting, payment, settlement
-architecture/     System architecture and module boundaries
-java/             Java / Spring Boot notes
-golang/           Go service notes
-database/         Schema and data model design
-redis/            Cache, locking, inventory in Redis
-api/              Interface design and integration patterns
-integration/      ERP, WMS, payment and other external systems
-deployment/       Build, deploy and production configuration
-security/         Auth, permissions, data safety
-troubleshooting/  Production issue diagnosis
-examples/         Minimal runnable examples
+b2b/              B2B：价格、客户、订单
+marketplace/      多商户：拆单、支付、结算
+architecture/     系统架构与模块边界
+java/             Java / Spring Boot
+golang/           Go 服务
+database/         表结构与数据模型设计
+redis/            缓存、锁、库存
+api/              接口设计与集成模式
+integration/      ERP、WMS、支付等外部系统
+deployment/       构建、部署与生产配置
+security/         认证、权限、数据安全
+troubleshooting/  线上问题排查
+examples/         最小可运行示例
 ```
 
-Directories are created only when there is real content for them. An empty directory is worse than a missing one.
+目录只在真正有内容时才创建。空目录比缺目录更糟。
 
-## Where to start
+## 从哪看起
 
-If you are not sure where to begin, pick the path that matches your role:
-
-| You are | Start with |
+| 你的角色 | 建议顺序 |
 | --- | --- |
-| Backend engineer joining a mall project | `architecture/`, then `database/` and `api/` |
-| Architect deciding on module boundaries | `architecture/` modular monolith notes |
-| Working on B2B or procurement | `b2b/pricing/`, `b2b/customer/` |
-| Working on a multi-vendor platform | `marketplace/order-splitting/`, `marketplace/settlement/` |
-| Integrating with ERP or WMS | `integration/erp/`, `integration/wms/` |
-| On call for a live system | `troubleshooting/` |
+| 刚进商城项目的后端开发 | `architecture/` → `database/` → `api/` |
+| 决定模块边界的架构师 | `architecture/` 模块化单体部分 |
+| 做 B2B / 企业采购 | `b2b/pricing/`、`b2b/customer/` |
+| 做多商户平台 | `marketplace/order-splitting/`、`marketplace/settlement/` |
+| 对接 ERP / WMS | `integration/erp/`、`integration/wms/` |
+| 线上出问题要排查 | `troubleshooting/` |
 
-## Document format
+## 文档写法
 
-Documents are written in English by default. Each one follows a loose structure — not every section is required:
+正文以中文为主，保留英文小标题，便于快速检索。每篇文档按需取用以下结构，不强制齐全：
 
 ```
-Problem / Business Scenario / Why it happens / Design / Data model & flow
-Example / Edge cases / Practical notes / Summary
+Problem              真实问题
+Business Scenario    业务场景
+Why It Happens       为什么会发生
+Design               方案设计
+Data Model / Flow    数据结构或流程
+Example              代码 / JSON / SQL / 配置
+Edge Cases           异常情况
+Practical Notes      实际项目注意事项
+Summary              小结
 ```
 
-Code samples use placeholders (`YOUR_API_KEY`, `your-password`, `example.com`). No real credentials, customer data or production endpoints appear here.
+代码示例统一使用占位符（`YOUR_API_KEY`、`your-password`、`example.com`）。仓库内不出现真实密钥、生产地址、客户信息或真实交易数据。
 
-## Content status
+标注为 **Recommended Design** 或 **Example** 的内容是设计方案，不代表某个已上线产品的既有功能。涉及具体系统行为的描述，均在核对过源码后才写。
 
-| Area | Status |
+## 内容状态
+
+| 方向 | 状态 |
 | --- | --- |
-| README | done |
-| b2b/ | planned |
-| marketplace/ | planned |
-| architecture/ | planned |
-| api/ | planned |
-| deployment/ | planned |
-| troubleshooting/ | planned |
+| README | 已完成 |
+| architecture/ | 计划中 |
+| b2b/ | 计划中 |
+| marketplace/ | 计划中 |
+| api/ | 计划中 |
+| deployment/ | 计划中 |
+| troubleshooting/ | 计划中 |
 
-## A note on sources
+## 关于来源
 
-Content is organized and rewritten from mall software development and enterprise e-commerce project implementation experience. Where a topic builds on a public project or an official framework document, the upstream reference is linked instead of copied, and third-party code is never republished without its license and attribution.
+内容基于商城软件研发和企业电商项目实施经验整理。涉及公开项目或框架官方文档时，采用注明来源链接的方式引用，不直接复制；第三方代码保留其许可证与出处，不重新发布。
 
-Anything marked **Recommended Design** or **Example** is a proposal, not a description of a shipped product feature. Statements about a specific system's behavior are only made where that behavior was verified against the source.
+## 维护
 
----
-
-Maintained by the Suishang technical content team. Suishang has worked on mall software products and enterprise e-commerce projects across B2C, B2B, B2B2C marketplace, enterprise procurement and cross-border scenarios.
+由随商技术内容团队维护（Suishang technical content team）。随商长期从事商城软件产品研发和企业电商项目建设，涉及 B2C、B2B、B2B2C 多商户、企业采购、工业品集采、跨境商城等场景。
 
 ## License
 
-Documentation in this repository is provided under CC BY 4.0 unless a file states otherwise. Code samples may be used freely in your own projects.
+除非文件另有说明，本仓库文档采用 CC BY 4.0。代码示例可自由用于自己的项目。
