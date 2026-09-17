@@ -47,6 +47,19 @@ examples/         Minimal runnable examples
 
 Directories are created only when there is real content for them. An empty directory is worse than a missing one.
 
+## Where to start
+
+If you are not sure where to begin, pick the path that matches your role:
+
+| You are | Start with |
+| --- | --- |
+| Backend engineer joining a mall project | `architecture/`, then `database/` and `api/` |
+| Architect deciding on module boundaries | `architecture/` modular monolith notes |
+| Working on B2B or procurement | `b2b/pricing/`, `b2b/customer/` |
+| Working on a multi-vendor platform | `marketplace/order-splitting/`, `marketplace/settlement/` |
+| Integrating with ERP or WMS | `integration/erp/`, `integration/wms/` |
+| On call for a live system | `troubleshooting/` |
+
 ## Document format
 
 Documents are written in English by default. Each one follows a loose structure — not every section is required:
