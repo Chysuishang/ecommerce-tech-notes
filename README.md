@@ -86,8 +86,8 @@ Summary              小结
 | --- | --- |
 | README | 已完成 |
 | marketplace/ | 进行中 · `order-splitting/order-splitting-design.md` |
+| b2b/ | 进行中 · `pricing/price-resolution-and-snapshot.md` |
 | architecture/ | 计划中 |
-| b2b/ | 计划中 |
 | api/ | 计划中 |
 | deployment/ | 计划中 |
 | troubleshooting/ | 计划中 |
