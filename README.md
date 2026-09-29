@@ -55,6 +55,7 @@ examples/         最小可运行示例
 | --- | --- |
 | 刚进商城项目的后端开发 | `architecture/` → `database/` → `api/` |
 | 决定模块边界的架构师 | `architecture/` 模块化单体部分 |
+| 做订单与库存 | `architecture/order-inventory/` |
 | 做 B2B / 企业采购 | `b2b/pricing/`、`b2b/customer/` |
 | 做多商户平台 | `marketplace/order-splitting/`、`marketplace/settlement/` |
 | 对接 ERP / WMS | `integration/erp/`、`integration/wms/` |
@@ -87,7 +88,7 @@ Summary              小结
 | README | 已完成 |
 | marketplace/ | 进行中 · `order-splitting/order-splitting-design.md` |
 | b2b/ | 进行中 · `pricing/price-resolution-and-snapshot.md` |
-| architecture/ | 计划中 |
+| architecture/ | 进行中 · `order-inventory/stock-deduction-boundary.md` |
 | api/ | 计划中 |
 | deployment/ | 计划中 |
 | troubleshooting/ | 计划中 |
