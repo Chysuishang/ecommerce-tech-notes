@@ -58,6 +58,7 @@ examples/         最小可运行示例
 | 做订单与库存 | `architecture/order-inventory/` |
 | 做 B2B / 企业采购 | `b2b/pricing/`、`b2b/customer/` |
 | 做多商户平台 | `marketplace/order-splitting/`、`marketplace/settlement/` |
+| 对接支付 / 写支付回调 | `api/payment-callback/` |
 | 对接 ERP / WMS | `integration/erp/`、`integration/wms/` |
 | 线上出问题要排查 | `troubleshooting/` |
 
@@ -89,7 +90,7 @@ Summary              小结
 | marketplace/ | 进行中 · `order-splitting/order-splitting-design.md` |
 | b2b/ | 进行中 · `pricing/price-resolution-and-snapshot.md` |
 | architecture/ | 进行中 · `order-inventory/stock-deduction-boundary.md` |
-| api/ | 计划中 |
+| api/ | 进行中 · `payment-callback/payment-callback-idempotency.md` |
 | deployment/ | 计划中 |
 | troubleshooting/ | 计划中 |
 
