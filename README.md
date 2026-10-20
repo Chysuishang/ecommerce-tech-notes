@@ -92,7 +92,7 @@ Summary              小结
 | architecture/ | 进行中 · `order-inventory/stock-deduction-boundary.md` |
 | api/ | 进行中 · `payment-callback/payment-callback-idempotency.md` |
 | deployment/ | 计划中 |
-| troubleshooting/ | 计划中 |
+| troubleshooting/ | 进行中 · `amount-consistency/discount-allocation-and-refund-residual.md` |
 
 ## 关于来源
 
