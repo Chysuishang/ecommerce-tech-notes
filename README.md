@@ -60,6 +60,7 @@ examples/         最小可运行示例
 | 做多商户平台 | `marketplace/order-splitting/`、`marketplace/settlement/` |
 | 对接支付 / 写支付回调 | `api/payment-callback/` |
 | 对接 ERP / WMS | `integration/erp/`、`integration/wms/` |
+| 上线部署一个商城服务 | `deployment/container-state/` |
 | 线上出问题要排查 | `troubleshooting/` |
 
 ## 文档写法
@@ -91,7 +92,7 @@ Summary              小结
 | b2b/ | 进行中 · `pricing/price-resolution-and-snapshot.md` |
 | architecture/ | 进行中 · `order-inventory/stock-deduction-boundary.md` |
 | api/ | 进行中 · `payment-callback/payment-callback-idempotency.md` |
-| deployment/ | 计划中 |
+| deployment/ | 进行中 · `container-state/state-and-upload-paths.md` |
 | troubleshooting/ | 进行中 · `amount-consistency/discount-allocation-and-refund-residual.md` |
 
 ## 关于来源
