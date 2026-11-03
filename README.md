@@ -56,6 +56,7 @@ examples/         最小可运行示例
 | 刚进商城项目的后端开发 | `architecture/` → `database/` → `api/` |
 | 决定模块边界的架构师 | `architecture/` 模块化单体部分 |
 | 做订单与库存 | `architecture/order-inventory/` |
+| 做商品与 SKU | `database/product/` |
 | 做 B2B / 企业采购 | `b2b/pricing/`、`b2b/customer/` |
 | 做多商户平台 | `marketplace/order-splitting/`、`marketplace/settlement/` |
 | 对接支付 / 写支付回调 | `api/payment-callback/` |
@@ -93,6 +94,7 @@ Summary              小结
 | architecture/ | 进行中 · `order-inventory/stock-deduction-boundary.md` |
 | api/ | 进行中 · `payment-callback/payment-callback-idempotency.md` |
 | deployment/ | 进行中 · `container-state/state-and-upload-paths.md` |
+| database/ | 进行中 · `product/sku-model-and-spec-combination.md` |
 | troubleshooting/ | 进行中 · `amount-consistency/discount-allocation-and-refund-residual.md` |
 
 ## 关于来源
