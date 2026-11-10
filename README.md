@@ -62,6 +62,7 @@ examples/         最小可运行示例
 | 对接支付 / 写支付回调 | `api/payment-callback/` |
 | 对接 ERP / WMS | `integration/erp/`、`integration/wms/` |
 | 上线部署一个商城服务 | `deployment/container-state/` |
+| 做多商户后台的权限与数据隔离 | `security/multi-tenant/` |
 | 线上出问题要排查 | `troubleshooting/` |
 
 ## 文档写法
@@ -95,6 +96,7 @@ Summary              小结
 | api/ | 进行中 · `payment-callback/payment-callback-idempotency.md` |
 | deployment/ | 进行中 · `container-state/state-and-upload-paths.md` |
 | database/ | 进行中 · `product/sku-model-and-spec-combination.md` |
+| security/ | 进行中 · `multi-tenant/data-scope-and-permission-boundary.md` |
 | troubleshooting/ | 进行中 · `amount-consistency/discount-allocation-and-refund-residual.md` |
 
 ## 关于来源
